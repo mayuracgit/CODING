@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn civil engineering design with Rahul Kare. Practical design courses, real project examples, and personal coaching.">
+  <title>Rahul Kare | Civil Engineering Design Mentor</title>
+  <style>
+    :root {
+      --navy: #09264a;
+      --blue: #0866e8;
+      --yellow: #ffc928;
+      --ink: #142b49;
+      --muted: #60728a;
+      --pale: #f2f7fc;
+      --white: #fff;
+      --green: #16855f;
+      --line: #dce6f0;
+      --shadow: 0 16px 38px rgba(9, 38, 74, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Inter, "Segoe UI", Arial, sans-serif; color: var(--ink); line-height: 1.6; background: #fff; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { font-size: 1.35rem; line-height: 1.1; font-weight: 900; color: var(--navy); letter-spacing: -.04em; }
+    .brand small { display: block; color: var(--blue); font-size: .65rem; letter-spacing: .11em; text-transform: uppercase; margin-top: 5px; }
+    .navlinks { display: flex; align-items: center; gap: 26px; font-size: .93rem; font-weight: 700; }
+    .navlinks a:hover { color: var(--blue); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 20px; border-radius: 12px; font-weight: 800; border: 0; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 9px 20px rgba(0,0,0,.12); }
+    .btn-yellow { background: var(--yellow); color: #152844; }
+    .btn-blue { background: var(--blue); color: white; }
+    .btn-outline { border: 1px solid #9ebce4; color: var(--blue); background: white; }
+    .menu-toggle { display: none; background: white; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 1.2rem; }
+    .hero { color: white; background: radial-gradient(circle at 80% 20%, rgba(33,125,220,.35), transparent 30%), linear-gradient(120deg, #061b35 0%, #0a3564 58%, #0c5594 100%); overflow: hidden; position: relative; }
+    .hero::after { content: ""; position: absolute; inset: 0; opacity: .14; pointer-events: none; background-image: linear-gradient(30deg, transparent 48%, #fff 49%, transparent 50%), linear-gradient(120deg, transparent 48%, #fff 49%, transparent 50%); background-size: 75px 75px; mask-image: linear-gradient(to right, transparent, black); }
+    .hero-grid { min-height: 590px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 36px; padding-top: 54px; padding-bottom: 58px; position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid rgba(255,255,255,.34); border-radius: 999px; font-size: .82rem; color: #ffe08a; font-weight: 800; letter-spacing: .03em; }
+    h1 { font-size: clamp(2.6rem, 5vw, 4.5rem); line-height: 1.04; letter-spacing: -.055em; margin: 22px 0 18px; }
+    h1 span { color: var(--yellow); }
+    .hero p { color: #e0ebf7; font-size: 1.1rem; max-width: 610px; margin: 0 0 26px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
+    .hero-points { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 650px; }
+    .hero-point { border-left: 2px solid rgba(255,201,40,.8); padding-left: 10px; color: #e8f1fc; font-size: .82rem; line-height: 1.35; }
+    .hero-point strong { display: block; color: white; font-size: .92rem; margin-bottom: 3px; }
+    .hero-art { position: relative; min-height: 420px; display: grid; place-items: center; }
+    .blueprint { width: min(100%, 465px); aspect-ratio: 1/1.08; border: 1px solid rgba(255,255,255,.28); border-radius: 34px; background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.035)); box-shadow: 0 25px 70px rgba(0,0,0,.24); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .blueprint svg { width: 90%; height: 90%; }
+    .floating-card { position: absolute; padding: 14px 17px; border-radius: 16px; background: white; color: var(--navy); box-shadow: var(--shadow); font-weight: 800; line-height: 1.25; }
+    .floating-card small { display: block; color: var(--muted); font-weight: 600; margin-top: 4px; }
+    .float-one { top: 15%; left: -2%; }
+    .float-two { right: -1%; bottom: 12%; background: var(--yellow); transform: rotate(3deg); }
+    .trust-strip { background: #f4f8fc; border-bottom: 1px solid var(--line); }
+    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); padding: 24px 0; gap: 20px; }
+    .trust-item { display: flex; align-items: center; gap: 13px; padding: 0 12px; border-right: 1px solid var(--line); }
+    .trust-item:last-child { border-right: 0; }
+    .trust-icon { width: 46px; height: 46px; flex: 0 0 46px; display: grid; place-items: center; background: white; border: 1px solid var(--line); border-radius: 14px; color: var(--blue); font-size: 1.35rem; }
+    .trust-item strong { display: block; font-size: .91rem; line-height: 1.3; }
+    .trust-item small { display: block; color: var(--muted); font-size: .78rem; margin-top: 4px; }
+    section { padding: 84px 0; }
+    .section-head { text-align: center; max-width: 720px; margin: 0 auto 42px; }
+    .kicker { color: var(--blue); background: #e5f1ff; padding: 6px 12px; border-radius: 999px; font-size: .75rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    h2 { font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.12; letter-spacing: -.04em; margin: 18px 0 12px; color: var(--navy); }
+    .section-head p { color: var(--muted); margin: 0; font-size: 1.05rem; }
+    .courses { background: linear-gradient(180deg, #fffdf5, #f7faff); }
+    .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+    .course-card { background: white; border: 1px solid var(--line); border-radius: 22px; padding: 28px; box-shadow: 0 8px 25px rgba(9,38,74,.045); display: flex; flex-direction: column; position: relative; }
+    .course-card.featured { border: 2px solid var(--blue); box-shadow: 0 18px 40px rgba(8,102,232,.12); transform: translateY(-8px); }
+    .popular { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); white-space: nowrap; background: var(--yellow); color: #263348; font-size: .75rem; font-weight: 900; border-radius: 999px; padding: 5px 13px; }
+    .course-icon { width: 54px; height: 54px; display: grid; place-items: center; background: #eaf3ff; border-radius: 16px; color: var(--blue); font-size: 1.7rem; margin-bottom: 20px; }
+    .course-card h3 { font-size: 1.35rem; margin: 0; color: var(--navy); }
+    .course-sub { color: var(--muted); font-size: .9rem; margin: 4px 0 15px; }
+    .price { font-size: 2.5rem; font-weight: 950; letter-spacing: -.05em; line-height: 1.1; color: var(--navy); }
+    .price small { font-size: .86rem; letter-spacing: 0; color: var(--muted); font-weight: 600; }
+    .features { list-style: none; padding: 0; margin: 24px 0 28px; display: grid; gap: 11px; flex: 1; }
+    .features li { display: flex; gap: 10px; align-items: flex-start; color: #354b66; font-size: .91rem; }
+    .features li::before { content: "✓"; color: var(--blue); font-weight: 950; }
+    .course-card .btn { width: 100%; }
+    .course-card.premium .course-icon { color: var(--green); background: #e6f7ef; }
+    .course-card.premium .features li::before { color: var(--green); }
+    .coach { padding: 0; background: var(--navy); color: white; }
+    .coach-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px; padding-top: 44px; padding-bottom: 44px; }
+    .coach-copy { display: flex; align-items: center; gap: 24px; }
+    .coach-symbol { width: 78px; height: 78px; flex: 0 0 78px; border-radius: 50%; background: white; color: var(--blue); display: grid; place-items: center; font-size: 2.1rem; }
+    .coach h2 { color: white; margin: 0 0 8px; font-size: 2rem; }
+    .coach p { color: #d6e5f6; margin: 0; max-width: 670px; }
+    .coach-cta { text-align: center; min-width: 230px; }
+    .coach-cta small { display: block; color: #d6e5f6; margin-top: 8px; }
+    .topics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .topic { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: white; transition: transform .2s, box-shadow .2s; }
+    .topic:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .topic-icon { font-size: 1.7rem; margin-bottom: 10px; }
+    .topic h3 { margin: 0 0 6px; font-size: 1rem; color: var(--navy); }
+    .topic p { margin: 0; color: var(--muted); font-size: .86rem; }
+    .about { background: var(--pale); }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 56px; }
+    .about-visual { min-height: 350px; background: linear-gradient(145deg, #0c3d71, #0b70c7); border-radius: 28px; padding: 30px; display: flex; align-items: end; position: relative; overflow: hidden; color: white; }
+    .about-visual::before { content: ""; position: absolute; inset: 30px; border: 1px solid rgba(255,255,255,.4); border-radius: 20px; background: repeating-linear-gradient(0deg, transparent 0 38px, rgba(255,255,255,.12) 39px 40px), repeating-linear-gradient(90deg, transparent 0 38px, rgba(255,255,255,.12) 39px 40px); }
+    .about-visual-content { position: relative; z-index: 1; }
+    .about-visual .big-mark { font-size: 5rem; font-weight: 950; line-height: 1; color: var(--yellow); letter-spacing: -.08em; }
+    .about-visual h3 { font-size: 1.6rem; margin: 10px 0 0; }
+    .about-copy h2 { margin-top: 18px; }
+    .about-copy p { color: var(--muted); }
+    .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 22px 0 28px; }
+    .check { display: flex; gap: 9px; font-weight: 700; font-size: .91rem; }
+    .check span { color: var(--green); font-weight: 950; }
+    .testimonials { background: linear-gradient(180deg, #eaf5ff, #f8fbff); }
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .review { background: white; padding: 25px; border: 1px solid #d8e8f7; border-radius: 18px; box-shadow: 0 8px 25px rgba(9,38,74,.04); }
+    .stars { color: #f2ad00; letter-spacing: 2px; }
+    .review blockquote { margin: 13px 0 20px; color: #344b67; }
+    .reviewer { display: flex; align-items: center; gap: 11px; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: #dcecff; color: var(--navy); font-weight: 900; }
+    .reviewer strong { display: block; font-size: .9rem; }
+    .reviewer small { display: block; color: var(--muted); }
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: start; }
+    .contact-copy p { color: var(--muted); }
+    .contact-item { display: flex; gap: 12px; margin: 18px 0; align-items: flex-start; }
+    .contact-item .icon { color: var(--blue); font-size: 1.25rem; }
+    .contact-item strong { display: block; }
+    .contact-item small { color: var(--muted); }
+    form { background: white; border: 1px solid var(--line); border-radius: 22px; padding: 28px; box-shadow: var(--shadow); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; font-size: .85rem; font-weight: 800; margin-bottom: 6px; }
+    input, select, textarea { width: 100%; padding: 13px 14px; border: 1px solid #cbd9e8; border-radius: 10px; font: inherit; color: var(--ink); background: #fbfdff; margin-bottom: 16px; }
+    input:focus, select:focus, textarea:focus { outline: 3px solid rgba(8,102,232,.15); border-color: var(--blue); }
+    textarea { min-height: 105px; resize: vertical; }
+    form .btn { width: 100%; }
+    .form-note { color: var(--muted); font-size: .78rem; margin: 12px 0 0; }
+    footer { background: #061a32; color: #d5e3f4; padding: 34px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    footer .brand { color: white; }
+    footer .brand small { color: #8dbdff; }
+    footer p { margin: 6px 0 0; font-size: .82rem; color: #a9bed5; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; font-size: .88rem; }
+    .disclaimer { font-size: .75rem; color: #a9bed5; margin-top: 20px; border-top: 1px solid rgba(255,255,255,.13); padding-top: 16px; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 150%); background: var(--navy); color: white; padding: 14px 20px; border-radius: 12px; box-shadow: var(--shadow); z-index: 50; transition: transform .25s; max-width: calc(100% - 30px); }
+    .toast.show { transform: translate(-50%, 0); }
+    @media (max-width: 900px) {
+      .navlinks { gap: 14px; }
+      .hero-grid { grid-template-columns: 1fr .8fr; min-height: 540px; }
+      .hero-points { grid-template-columns: repeat(2, 1fr); }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-item:nth-child(2) { border-right: 0; }
+      .course-grid { gap: 14px; }
+      .course-card { padding: 22px; }
+      .topics-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 30px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 30px, 560px); }
+      .nav { min-height: 68px; }
+      .menu-toggle { display: block; }
+      .navlinks { display: none; position: absolute; left: 0; right: 0; top: 68px; padding: 18px 22px 22px; background: white; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 16px; box-shadow: var(--shadow); }
+      .navlinks.open { display: flex; }
+      .navlinks .btn { text-align: center; }
+      .hero-grid { grid-template-columns: 1fr; padding-top: 44px; gap: 20px; }
+      h1 { font-size: clamp(2.5rem, 12vw, 3.7rem); }
+      .hero-art { min-height: 310px; }
+      .blueprint { width: min(85%, 350px); }
+      .float-one { left: 0; top: 8%; }
+      .float-two { right: 0; bottom: 8%; }
+      .trust-grid { gap: 14px 8px; padding: 18px 0; }
+      .trust-item { padding: 0 4px; gap: 9px; border: 0; }
+      .trust-icon { width: 38px; height: 38px; flex-basis: 38px; font-size: 1.1rem; }
+      .trust-item strong { font-size: .8rem; }
+      .trust-item small { font-size: .72rem; }
+      section { padding: 62px 0; }
+      .course-grid, .review-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .course-card.featured { transform: none; margin-top: 10px; }
+      .coach-inner { grid-template-columns: 1fr; }
+      .coach-copy { align-items: flex-start; gap: 14px; }
+      .coach-symbol { width: 56px; height: 56px; flex-basis: 56px; font-size: 1.5rem; }
+      .coach h2 { font-size: 1.7rem; }
+      .coach-cta { text-align: left; }
+      .about-visual { min-height: 280px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home">Rahul Kare<small>Civil Engineering Mentor</small></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="navlinks" id="navLinks" aria-label="Main navigation">
+        <a href="#home">Home</a><a href="#courses">Courses</a><a href="#about">About</a><a href="#testimonials">Reviews</a><a href="#contact">Contact</a>
+        <a class="btn btn-yellow" href="#contact">Enquire Now ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">✦ DESIGN · PRACTICAL · CAREER FOCUSED</span>
+          <h1>Build Your Skills.<br>Design with <span>Confidence.</span></h1>
+          <p>Learn civil engineering design with clear explanations, practical examples, and step-by-step guidance from Rahul Kare.</p>
+          <div class="hero-actions">
+            <a class="btn btn-yellow" href="#courses">Explore Course Packages <span>→</span></a>
+            <a class="btn btn-outline" href="#personal-coaching">Explore Personal Coaching</a>
+          </div>
+          <div class="hero-points">
+            <div class="hero-point"><strong>Easy to Learn</strong>Concepts explained simply</div>
+            <div class="hero-point"><strong>Practical Focus</strong>Examples from design work</div>
+            <div class="hero-point"><strong>Step by Step</strong>Build confidence gradually</div>
+            <div class="hero-point"><strong>Ask Questions</strong>Guidance when you need it</div>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Civil engineering blueprint illustration">
+          <div class="blueprint">
+            <svg viewBox="0 0 420 450" role="img" aria-label="Illustration of a structural building design">
+              <defs><linearGradient id="bldg" x1="0" x2="1"><stop stop-color="#e9f4ff" stop-opacity=".9"/><stop offset="1" stop-color="#9dcaff" stop-opacity=".25"/></linearGradient></defs>
+              <g fill="none" stroke="#d6eaff" stroke-width="2" opacity=".85">
+                <path d="M40 380 L210 420 L380 365 L210 325 Z"/><path d="M40 380 V220 L210 160 L380 220 V365"/><path d="M210 160 V325"/><path d="M40 260 L210 310 L380 260"/><path d="M40 300 L210 350 L380 300"/><path d="M40 340 L210 390 L380 340"/>
+                <path d="M80 206 V349 M125 190 V363 M165 174 V375 M255 176 V377 M300 191 V363 M340 206 V348"/>
+                <path d="M40 220 L80 235 L125 219 L165 235 L210 220 L255 235 L300 219 L340 235 L380 220"/>
+                <path d="M80 235 V190 L125 174 V219 M125 174 V130 L165 116 V174 M165 116 V91 L210 75 L255 91 V176 M255 91 V133 L300 148 V219 M300 148 V192 L340 206"/>
+                <path d="M80 190 L125 205 L165 190 L210 205 L255 190 L300 205 L340 220"/>
+                <path d="M95 155 L95 95 L150 75 L150 135 M95 95 L150 115 M95 125 L150 145"/>
+                <path d="M270 140 L270 65 L330 45 L330 165 M270 65 L330 85 M270 100 L330 120"/>
+                <path d="M55 405 L55 430 M45 418 H65 M360 390 L390 380 M375 380 L390 395"/>
+              </g>
+              <g fill="url(#bldg)" stroke="#d6eaff" stroke-width="1.5">
+                <path d="M80 190 L125 174 L125 363 L80 349 Z"/><path d="M165 116 L210 75 L255 91 L255 377 L210 390 L165 375 Z"/><path d="M300 148 L340 165 L340 348 L300 363 Z"/>
+              </g>
+              <g fill="#ffc928"><circle cx="210" cy="75" r="5"/><circle cx="330" cy="45" r="5"/><circle cx="95" cy="95" r="5"/></g>
+              <g fill="#e5f2ff" font-size="11" font-family="Arial"><text x="28" y="205">ELEVATION</text><text x="280" y="25">STRUCTURE</text><text x="145" y="440">DESIGN • DETAIL • BUILD</text></g>
+            </svg>
+          </div>
+          <div class="floating-card float-one">📐 Design Skills<small>Learn one concept at a time</small></div>
+          <div class="floating-card float-two">Your next step starts here ↗</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-grid">
+        <div class="trust-item"><div class="trust-icon">🎓</div><div><strong>Students & Graduates</strong><small>Strengthen core concepts</small></div></div>
+        <div class="trust-item"><div class="trust-icon">🏢</div><div><strong>Working Professionals</strong><small>Grow practical design skills</small></div></div>
+        <div class="trust-item"><div class="trust-icon">📐</div><div><strong>Real-World Examples</strong><small>Connect theory to practice</small></div></div>
+        <div class="trust-item"><div class="trust-icon">👥</div><div><strong>Personal Coaching</strong><small>One-to-one guidance option</small></div></div>
+      </div>
+    </div>
+
+    <section class="courses" id="courses">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Choose Your Learning Path</span>
+          <h2>Course Packages</h2>
+          <p>Practical, structured learning options for different goals and budgets.</p>
+        </div>
+        <div class="course-grid">
+          <article class="course-card">
+            <div class="course-icon">📘</div>
+            <h3>Basic Package</h3>
+            <div class="course-sub">Concepts & Fundamentals</div>
+            <div class="price">₹4,999 <small>/ course</small></div>
+            <ul class="features">
+              <li>Recorded learning sessions</li>
+              <li>Design fundamentals and core concepts</li>
+              <li>Downloadable study notes</li>
+              <li>Illustrative design examples</li>
+              <li>3-month access (sample)</li>
+            </ul>
+            <button class="btn btn-outline choose-package" data-package="Basic Package">Enquire About Basic →</button>
+          </article>
+          <article class="course-card featured">
+            <span class="popular">MOST POPULAR</span>
+            <div class="course-icon">📊</div>
+            <h3>Professional Package</h3>
+            <div class="course-sub">Complete Design Learning</div>
+            <div class="price">₹8,999 <small>/ course</small></div>
+            <ul class="features">
+              <li>Everything in Basic</li>
+              <li>Detailed RCC and steel design topics</li>
+              <li>Worked examples and practice tasks</li>
+              <li>Design workflow and software overview</li>
+              <li>Group doubt-solving sessions</li>
+              <li>6-month access (sample)</li>
+            </ul>
+            <button class="btn btn-blue choose-package" data-package="Professional Package">Enquire About Professional →</button>
+          </article>
+          <article class="course-card premium">
+            <div class="course-icon">🏆</div>
+            <h3>Advanced Package</h3>
+            <div class="course-sub">Advanced Topics + Mentoring</div>
+            <div class="price">₹14,999 <small>/ course</small></div>
+            <ul class="features">
+              <li>Everything in Professional</li>
+              <li>Advanced topics and case studies</li>
+              <li>4 one-to-one coaching sessions</li>
+              <li>Project review and feedback</li>
+              <li>Career and interview guidance</li>
+              <li>12-month access (sample)</li>
+            </ul>
+            <button class="btn btn-outline choose-package" data-package="Advanced Package">Enquire About Advanced →</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="coach" id="personal-coaching">
+      <div class="container coach-inner">
+        <div class="coach-copy">
+          <div class="coach-symbol">👤</div>
+          <div>
+            <h2>Personal Coaching, Built Around You</h2>
+            <p>Get focused one-to-one guidance for difficult design concepts, academic projects, professional upskilling, or specific learning goals.</p>
+          </div>
+        </div>
+        <div class="coach-cta">
+          <a class="btn btn-yellow" href="#contact" data-coaching="yes">Book a Coaching Enquiry →</a>
+          <small>Sample pricing starts at ₹2,000 per session</small>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Topics Covered</span>
+          <h2>What You Can Learn</h2>
+          <p>Example learning areas—final syllabus can be customized to the actual courses offered.</p>
+        </div>
+        <div class="topics-grid">
+          <article class="topic"><div class="topic-icon">🏗️</div><h3>RCC Design</h3><p>Understand reinforced concrete design concepts and worked examples.</p></article>
+          <article class="topic"><div class="topic-icon">🔩</div><h3>Steel Design</h3><p>Explore steel member design principles and common calculations.</p></article>
+          <article class="topic"><div class="topic-icon">🧱</div><h3>Foundation Design</h3><p>Learn introductory foundation concepts and design considerations.</p></article>
+          <article class="topic"><div class="topic-icon">📈</div><h3>Structural Analysis</h3><p>Build confidence with loads, reactions, and structural behaviour.</p></article>
+          <article class="topic"><div class="topic-icon">💻</div><h3>Design Software</h3><p>Introductory workflow for relevant structural design tools.</p></article>
+          <article class="topic"><div class="topic-icon">📋</div><h3>Project Case Studies</h3><p>Connect classroom knowledge to illustrative project scenarios.</p></article>
+          <article class="topic"><div class="topic-icon">📐</div><h3>Drawing & Detailing</h3><p>Understand drawing interpretation and detailing basics.</p></article>
+          <article class="topic"><div class="topic-icon">💼</div><h3>Career Preparation</h3><p>Prepare for technical interviews and workplace learning.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-visual">
+          <div class="about-visual-content"><div class="big-mark">RK.</div><h3>Learn Design.<br>Build Your Future.</h3><p>Practical learning for aspiring civil engineers.</p></div>
+        </div>
+        <div class="about-copy">
+          <span class="kicker">Meet Your Mentor</span>
+          <h2>Learn with Rahul Kare</h2>
+          <p>Make complex design concepts easier to understand with structured lessons, worked examples, and a learning path that fits your goals.</p>
+          <p>Whether you are strengthening fundamentals or looking for focused coaching, choose a package that suits your next step.</p>
+          <div class="check-grid">
+            <div class="check"><span>✓</span> Clear concept explanations</div>
+            <div class="check"><span>✓</span> Practical examples</div>
+            <div class="check"><span>✓</span> Structured course options</div>
+            <div class="check"><span>✓</span> One-to-one coaching option</div>
+          </div>
+          <a class="btn btn-blue" href="#contact">Talk About Your Goals →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Learner Feedback</span>
+          <h2>A Better Way to Learn</h2>
+          <p>Sample testimonial cards for layout testing. Replace with genuine, permission-approved reviews before publishing.</p>
+        </div>
+        <div class="review-grid">
+          <article class="review"><div class="stars">★★★★★</div><blockquote>“The step-by-step approach made the design concepts much easier to follow.”</blockquote><div class="reviewer"><div class="avatar">A</div><div><strong>Sample Student A</strong><small>Civil Engineering Student</small></div></div></article>
+          <article class="review"><div class="stars">★★★★★</div><blockquote>“I liked the practical examples and the way each topic was broken into smaller steps.”</blockquote><div class="reviewer"><div class="avatar">P</div><div><strong>Sample Learner B</strong><small>Graduate Engineer</small></div></div></article>
+          <article class="review"><div class="stars">★★★★★</div><blockquote>“One-to-one guidance can be useful when you need to focus on a specific design problem.”</blockquote><div class="reviewer"><div class="avatar">S</div><div><strong>Sample Learner C</strong><small>Working Professional</small></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <span class="kicker">Let's Get Started</span>
+          <h2>Have a Learning Goal in Mind?</h2>
+          <p>Share what you want to learn and we can discuss the package or coaching option that fits you.</p>
+          <div class="contact-item"><div class="icon">✉</div><div><strong>Email</strong><small>rahulkare.civil@example.com <em>(demo address—replace before publishing)</em></small></div></div>
+          <div class="contact-item"><div class="icon">☎</div><div><strong>Phone / WhatsApp</strong><small>+91 90000 00000 <em>(demo number—replace before publishing)</em></small></div></div>
+          <div class="contact-item"><div class="icon">📍</div><div><strong>Location</strong><small>Online sessions / location to be confirmed</small></div></div>
+        </div>
+        <form id="enquiryForm">
+          <h3 style="margin:0 0 5px;color:var(--navy);font-size:1.35rem;">Send an Enquiry</h3>
+          <p style="margin:0 0 22px;color:var(--muted);font-size:.9rem;">This demo form opens an email draft in your email app. It does not store submissions.</p>
+          <div class="form-row">
+            <div><label for="name">Your Name *</label><input id="name" name="name" placeholder="Enter your name" required></div>
+            <div><label for="phone">Phone Number *</label><input id="phone" name="phone" type="tel" placeholder="+91..." required></div>
+          </div>
+          <label for="email">Email Address</label><input id="email" name="email" type="email" placeholder="you@example.com">
+          <label for="package">Interested In *</label>
+          <select id="package" name="package" required>
+            <option value="">Choose an option</option>
+            <option>Basic Package — ₹4,999</option>
+            <option>Professional Package — ₹8,999</option>
+            <option>Advanced Package — ₹14,999</option>
+            <option>Personal Coaching — from ₹2,000/session</option>
+            <option>Need help choosing</option>
+          </select>
+          <label for="message">What would you like to learn?</label><textarea id="message" name="message" placeholder="Tell us about your learning goals..."></textarea>
+          <button class="btn btn-blue" type="submit">Prepare My Enquiry →</button>
+          <p class="form-note">Demo only: update the email address in this HTML before going live. For a real hosted form, connect a form service or backend.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div><a class="brand" href="#home">Rahul Kare<small>Civil Engineering Mentor</small></a><p>Learn design. Build your future.</p></div>
+        <div class="footer-links"><a href="#courses">Packages</a><a href="#personal-coaching">Personal Coaching</a><a href="#about">About</a><a href="#contact">Enquire</a></div>
+      </div>
+      <div class="disclaimer">Demo website for testing. Package prices, course inclusions, testimonials, contact details, and claims are illustrative placeholders. Confirm and replace all details before publishing as a real advertisement. © <span id="year"></span> Rahul Kare.</div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
+    document.querySelectorAll('.choose-package').forEach(button => {
+      button.addEventListener('click', () => {
+        const select = document.getElementById('package');
+        const map = {
+          'Basic Package': 'Basic Package — ₹4,999',
+          'Professional Package': 'Professional Package — ₹8,999',
+          'Advanced Package': 'Advanced Package — ₹14,999'
+        };
+        select.value = map[button.dataset.package];
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => document.getElementById('name').focus({ preventScroll: true }), 500);
+      });
+    });
+    document.querySelectorAll('[data-coaching]').forEach(link => link.addEventListener('click', () => {
+      document.getElementById('package').value = 'Personal Coaching — from ₹2,000/session';
+    }));
+    const toast = document.getElementById('toast');
+    document.getElementById('enquiryForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const name = String(data.get('name') || '').trim();
+      const phone = String(data.get('phone') || '').trim();
+      const email = String(data.get('email') || '').trim();
+      const chosen = String(data.get('package') || '').trim();
+      const message = String(data.get('message') || '').trim();
+      const body = `Name: ${name}\nPhone: ${phone}\nEmail: ${email || 'Not provided'}\nInterested in: ${chosen}\nLearning goals: ${message || 'Not provided'}`;
+      const subject = encodeURIComponent('Course enquiry from ' + name);
+      const encodedBody = encodeURIComponent(body);
+      // Replace this demo address with the real enquiry email before publishing.
+      window.location.href = `mailto:rahulkare.civil@example.com?subject=${subject}&body=${encodedBody}`;
+      toast.textContent = 'Your email app should open with the enquiry details. Replace the demo email address before publishing.';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 5500);
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
